@@ -43,6 +43,6 @@
     "typescript": "^3.9.6"
   },
   "dependencies": {
-    "axios": "^0.27.2"
+    "@vtex/styleguide": "^9.146.1"
   }
 }

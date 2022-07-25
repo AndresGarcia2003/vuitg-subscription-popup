@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react'
 import { Modal, Input, Alert, Button } from 'vtex.styleguide'
 import { useCssHandles } from 'vtex.css-handles'
 import axios from 'axios'
+import './styles.css'
 
 type Props = {
+  porcentageDiscount: number
   accountName: string
   environment: string
-  porcentageDiscount: number
 }
 
 const SubscriptionPopup = ({
@@ -22,7 +23,7 @@ const SubscriptionPopup = ({
 
   useEffect(() => {
     !localStorage.getItem('ingreso') ? setModal(!modal) : setModal(false)
-  }, [modal])
+  }, [])
 
   const handleChange = (element: { target: { value: string } }) => {
     setEmail(element.target.value)
@@ -35,8 +36,8 @@ const SubscriptionPopup = ({
       )
     ) {
       setModal(!modal)
-      axios.get(link).then((i) => {
-        if (i.data.length > 0) {
+      axios.get(link).then((it) => {
+        if (it.data.length > 0) {
           setModalAlert({ ...modalAlert, state: true })
           localStorage.setItem('ingreso', '1')
         } else {
@@ -97,7 +98,11 @@ const SubscriptionPopup = ({
             placeholder="Correo Electrónico"
           />
           <div>
-            <Button variation="primary" onClick={handleModal}>
+            <Button
+              className={handles.button}
+              variation="primary"
+              onClick={handleModal}
+            >
               Enviar
             </Button>
           </div>
