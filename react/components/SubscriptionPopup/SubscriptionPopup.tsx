@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/accessible-emoji */
 import React, { useState, useEffect } from 'react'
 import { Modal, Input, Alert, Button } from 'vtex.styleguide'
 import { useCssHandles } from 'vtex.css-handles'
@@ -5,9 +6,9 @@ import axios from 'axios'
 import './styles.css'
 
 type Props = {
-  porcentageDiscount: number
   accountName: string
   environment: string
+  porcentageDiscount: number
 }
 
 const SubscriptionPopup = ({
@@ -16,13 +17,15 @@ const SubscriptionPopup = ({
   porcentageDiscount,
 }: Props) => {
   const [modal, setModal] = useState(false)
-  const [modalAlert, setModalAlert] = useState({ state: false, type: '' })
-  const [email, setEmail] = useState('')
-  const [error, setError] = useState({ state: false, message: '' })
+  const [modalAlert, setModalAlert] = useState({ state: false, type: "" })
+  const [email, setEmail] = useState("")
+  const [error, setError] = useState({ state: false, message: "" })
   const link = `https://${accountName}--${environment}.myvtex.com/api/dataentities/CL/search?email=${email}`
 
   useEffect(() => {
-    !localStorage.getItem('ingreso') ? setModal(!modal) : setModal(false)
+    !localStorage.getItem("ingreso")
+    ? setModal(!modal)
+    : setModal(false)
   }, [])
 
   const handleChange = (element: { target: { value: string } }) => {
@@ -30,11 +33,7 @@ const SubscriptionPopup = ({
   }
 
   const handleModal = () => {
-    if (
-      /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(
-        email
-      )
-    ) {
+    if(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/.test(email)){
       setModal(!modal)
       axios.get(link).then((it) => {
         if (it.data.length > 0) {
@@ -55,7 +54,7 @@ const SubscriptionPopup = ({
     setModalAlert({ ...modalAlert, state: false })
   }
 
-  const CSS_HANDLES = ['container', 'modal', 'title', 'subTitle', 'input']
+  const CSS_HANDLES = ['container', 'modal', 'title', 'subTitle', 'input','button']
 
   const handles = useCssHandles(CSS_HANDLES)
 
@@ -64,7 +63,7 @@ const SubscriptionPopup = ({
       {modalAlert.type === 'success' ? (
         <Modal centered isOpen={modalAlert.state} onClose={handleModalAlert}>
           <Alert type="success">
-            !Felicitaciones¡, para obtener tu descuento registrate
+            !Felicitaciones¡, registrate para obtener tu descuento 😺
           </Alert>
         </Modal>
       ) : (
@@ -82,7 +81,7 @@ const SubscriptionPopup = ({
       >
         <div className={handles.container}>
           <h1 className={handles.title}>
-            !Obtén {porcentageDiscount}% en tu primera compra¡
+          🎉!Hasta {porcentageDiscount}% de descuento en tu primera compra¡🎉
           </h1>
           <h3 className={handles.subTitle}>
             Ingresa tu correo para obtener tu descuento
@@ -98,13 +97,7 @@ const SubscriptionPopup = ({
             placeholder="Correo Electrónico"
           />
           <div>
-            <Button
-              className={handles.button}
-              variation="primary"
-              onClick={handleModal}
-            >
-              Enviar
-            </Button>
+          <Button variation="primary" onClick={handleModal}>Enviar</Button>
           </div>
         </div>
       </Modal>
